@@ -1,31 +1,29 @@
-import { ApolloServer, gql } from "apollo-server";
-
-const typeDefs = gql`
-type Book {
-    title: String
-    author: String
-}
-
-type Query {
-    books: [Book]
-}`;
-
-const books = [
-    {
-        title: "Book 1",
-        author: "Author 1"
-    },
-    {
-        title: "Book 2",
-        author: "Author 2"
-    }
-];
+import { ApolloServer } from "apollo-server";
+import { createContext } from "./context";
+import { typeDefs } from "./schema";
+import * as post from "./post";
+import * as user from "./user";
 
 const resolvers = {
     Query: {
-        books: () => books
-    }
+        feed: post.feed,
+        post: post.fetchPost,
+        user: user.fetchUser,
+    },
+    Mutation: {
+        createPost: post.createPost,
+        updatePost: post.updatePost,
+        deletePost: post.deletePost,
+
+        createUser: user.createUser,
+        updateUser: user.updateUser,
+        deleteUser: user.deleteUser,
+    },
 };
 
-const server = new ApolloServer({typeDefs, resolvers});
-server.listen().then(({url}) => console.log(`Server running at ${url}`));
+const server = new ApolloServer({
+    typeDefs,
+    resolvers,
+    context: createContext(),
+});
+server.listen().then(({ url }) => console.log(`Server running at ${url}`));

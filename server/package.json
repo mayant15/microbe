@@ -5,15 +5,20 @@
   "main": "dist/app.js",
   "scripts": {
     "start": "tsc && node dist/app.js",
+    "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Mayant Mukul",
   "license": "MIT",
   "devDependencies": {
-    "tslint": "^6.1.3",
+    "@prisma/cli": "^2.10.2",
+    "@typescript-eslint/eslint-plugin": "^4.6.1",
+    "@typescript-eslint/parser": "^4.6.1",
+    "eslint": "^7.12.1",
     "typescript": "^4.0.5"
   },
   "dependencies": {
+    "@prisma/client": "^2.10.2",
     "apollo-server": "^2.19.0",
     "graphql": "^14.7.0"
   }
